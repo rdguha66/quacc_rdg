@@ -44,7 +44,7 @@ if TYPE_CHECKING:
 )
 def ts_job(
     atoms: Atoms,
-    use_custom_hessian: bool = False,
+    use_custom_hessian: bool = True,
     run_freq: bool = True,
     freq_job_kwargs: dict[str, Any] | None = None,
     opt_params: OptParams | None = None,
@@ -62,8 +62,6 @@ def ts_job(
         Whether to use a custom Hessian matrix.
     run_freq
         Whether to run the frequency job.
-    freq_job_kwargs
-        Keyword arguments to use for the [quacc.recipes.torchSANI.core.freq_job][].
     opt_params
         Dictionary of custom kwargs for the optimization process. For a list
         of available keys, refer to [quacc.runners.ase.Runner.run_opt][].
@@ -145,9 +143,6 @@ def ts_job(
                 print("Warning: No imaginary frequencies found - this is not a proper transition state")
         except Exception as e:
             print(f"Error in direct frequency calculation: {str(e)}")
-            # Fall back to full frequency job
-            print("Falling back to full frequency job")
-            freq_summary = strip_decorator(freq_job)(opt_ts_summary["atoms"], **freq_job_kwargs)
     
     opt_ts_summary["freq_job"] = freq_summary
 
