@@ -740,3 +740,8 @@ if TYPE_CHECKING:
 
     class QchemQuasiIRCSchema(OptSchema):
         initial_irc: OptSchema
+        
+    # ----------- Recipe (torchSANI) type hints -----------
+    
+    class SaniTSSchema(TypedDict):
+        freq_job: VibThermoSchema | None
